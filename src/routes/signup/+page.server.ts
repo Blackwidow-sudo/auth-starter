@@ -1,9 +1,9 @@
-import { fail, redirect } from '@sveltejs/kit'
-import * as auth from '$lib/server/auth'
 import { db, table } from '$lib/server/db'
-import { validatePassword, validateUsername, validateEmail } from '$lib/server/validation'
-import { hash } from '@node-rs/argon2'
 import { dev } from '$app/environment'
+import { fail, redirect } from '@sveltejs/kit'
+import { hash } from '@node-rs/argon2'
+import { validatePassword, validateUsername, validateEmail } from '$lib/server/validation'
+import * as auth from '$lib/server/auth'
 
 import type { Actions, PageServerLoad } from './$types'
 
@@ -47,6 +47,7 @@ export const actions = {
 				.returning({ id: table.users.id })
 
 			const session = await auth.createSession(user.id)
+
 			cookies.set(auth.sessionCookieName, session.id, {
 				path: '/',
 				sameSite: 'lax',
@@ -55,7 +56,9 @@ export const actions = {
 				secure: !dev
 			})
 		} catch (e: unknown) {
-			console.error(e)
+			if (dev) {
+				console.error(e)
+			}
 
 			return fail(500, { message: 'An error has occurred' })
 		}

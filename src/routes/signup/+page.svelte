@@ -1,45 +1,39 @@
 <script lang="ts">
-	import { enhance } from '$app/forms'
+	import * as Form from '$lib/components/form'
 
 	import type { ActionData } from './$types'
 
-	let { form }: { form: ActionData } = $props()
+	interface Props {
+		form: ActionData
+	}
+
+	let { form }: Props = $props()
 </script>
 
-<div>
-	<h1>Register</h1>
-	<form
-		method="post"
-		use:enhance>
-		<div>
-			<label for="email">Email</label>
-			<input
-				type="email"
-				name="email"
-				id="email" />
-		</div>
-		<div>
-			<label for="username">Username</label>
-			<input
-				type="text"
-				name="username"
-				id="username" />
-		</div>
-		<div>
-			<label for="password">Password</label>
-			<input
-				type="password"
-				name="password"
-				id="password" />
-		</div>
-		<div>
-			<label for="password_confirmation">Confirm password</label>
-			<input
-				type="password"
-				name="password_confirmation"
-				id="password_confirmation" />
-		</div>
-		<button>Register</button>
-	</form>
+<div class="py-4">
+	<h1 class="text-xl font-bold text-center">Register</h1>
+	<Form.Form>
+		<Form.Input
+			label="Email"
+			type="email"
+			name="email"
+			placeholder="Enter your email..." />
+		<Form.Input
+			label="Username"
+			type="text"
+			name="username"
+			placeholder="Enter your username..." />
+		<Form.Input
+			label="Password"
+			type="password"
+			name="password"
+			placeholder="Enter your password..." />
+		<Form.Input
+			label="Confirm password"
+			type="password"
+			name="password_confirmation"
+			placeholder="Confirm your password..." />
+		<Form.Submit>Sign Up</Form.Submit>
+	</Form.Form>
 	<p style="color: red">{form?.message ?? ''}</p>
 </div>
