@@ -19,15 +19,15 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^3.3.0",
-		"@sveltejs/kit": "^2.7.2",
+		"@sveltejs/adapter-auto": "^3.3.1",
+		"@sveltejs/kit": "^2.7.3",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@tailwindcss/forms": "^0.5.9",
 		"@tailwindcss/typography": "^0.5.15",
 		"@types/eslint": "^9.6.1",
 		"autoprefixer": "^10.4.20",
 		"clsx": "^2.1.1",
-		"drizzle-kit": "^0.22.8",
+		"drizzle-kit": "^0.26.2",
 		"eslint": "^9.13.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.46.0",
@@ -47,7 +47,7 @@
 		"@node-rs/argon2": "^1.8.3",
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",
-		"drizzle-orm": "^0.33.0",
-		"postgres": "^3.4.4"
+		"drizzle-orm": "^0.35.3",
+		"postgres": "^3.4.5"
 	}
 }
