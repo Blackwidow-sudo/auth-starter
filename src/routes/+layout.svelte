@@ -8,9 +8,9 @@
 	let { children, data } = $props()
 </script>
 
-<div class="flex size-full flex-col overflow-hidden">
+<div class="flex size-full flex-col overflow-hidden dark:text-white">
 	<header
-		class="z-10 flex-none border-b border-slate-500 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">
+		class="z-10 flex-none border-b border-slate-500 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white">
 		<div class="flex flex-nowrap items-center justify-between">
 			<a
 				class="px-4 text-xl font-semibold"
@@ -43,11 +43,11 @@
 	</header>
 	<div class="flex size-full flex-auto overflow-hidden">
 		<aside
-			class="scrollbar-thin flex-none overflow-y-auto overflow-x-hidden border-r border-slate-500">
+			class="scrollbar-thin flex-none overflow-y-auto overflow-x-hidden border-r border-slate-400 bg-slate-300 dark:border-slate-700 dark:bg-slate-900">
 			<Navigation {routes} />
 		</aside>
 		<div
-			class="flex flex-1 flex-col overflow-x-hidden scroll-smooth bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-700 dark:to-slate-900">
+			class="flex flex-1 flex-col overflow-x-hidden scroll-smooth dark:bg-slate-950 dark:text-slate-300">
 			<main class="container mx-auto flex-auto">
 				{@render children()}
 			</main>
