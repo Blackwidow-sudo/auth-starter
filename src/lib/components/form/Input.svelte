@@ -64,7 +64,7 @@
 </script>
 
 <div
-	class="dark:text-white"
+	class="dark:text-slate-200"
 	data-type="sv-input">
 	<label
 		class="block w-full"

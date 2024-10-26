@@ -25,11 +25,10 @@
 
 <button
 	class={cn(
-		'px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded mx-auto block disabled:opacity-50 transition disabled:cursor-not-allowed',
+		'mx-auto block rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50',
 		cls
 	)}
 	type="submit"
-	disabled={!isValid}
 	{...restProps}>
 	{@render children()}
 </button>

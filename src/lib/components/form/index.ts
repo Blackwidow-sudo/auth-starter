@@ -1,10 +1,6 @@
 import { fail } from '@sveltejs/kit'
 
-export type ErrorBag = {
-	[key: string]: string[]
-}
-
-export function failWithErrors(errors: ErrorBag, status = 400) {
+export function failWithErrors(errors: Record<string, string[]>, status = 400) {
 	return fail(status, { errors })
 }
 
