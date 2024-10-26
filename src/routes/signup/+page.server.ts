@@ -2,10 +2,11 @@ import { db, table } from '$lib/server/db'
 import { dev } from '$app/environment'
 import { fail, redirect } from '@sveltejs/kit'
 import { hash } from '@node-rs/argon2'
-import { validatePassword, validateUsername, validateEmail } from '$lib/server/validation'
+import { validatePassword, validateUsername, validateEmail } from '$lib/validation'
 import * as auth from '$lib/server/auth'
 
 import type { Actions, PageServerLoad } from './$types'
+import { failWithErrors } from '$lib/components/form'
 
 export const load = (async ({ locals }) => {
 	if (locals.user) {
@@ -20,16 +21,20 @@ export const actions = {
 		const formData = await request.formData()
 		const username = formData.get('username')
 		const password = formData.get('password')
+		const pwConfirm = formData.get('password_confirmation')
 		const email = formData.get('email')
 
 		if (!validateEmail(email)) {
-			return fail(400, { message: 'Invalid email' })
+			return failWithErrors({ email: ['Invalid email'] })
 		}
 		if (!validateUsername(username)) {
-			return fail(400, { message: 'Invalid username' })
+			return failWithErrors({ username: ['Invalid username'] })
 		}
 		if (!validatePassword(password)) {
-			return fail(400, { message: 'Invalid password' })
+			return failWithErrors({ password: ['Invalid password'] })
+		}
+		if (password !== pwConfirm) {
+			return failWithErrors({ passwordConfirmation: ['Passwords do not match'] })
 		}
 
 		const passwordHash = await hash(password, {
