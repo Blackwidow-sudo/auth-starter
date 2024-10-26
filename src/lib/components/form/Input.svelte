@@ -35,7 +35,6 @@
 
 	if (hasFormCtx()) {
 		$effect(() => {
-			console.log('context runs')
 			const ctx = getFormCtx()
 
 			// Set the field's validation state in the form context
