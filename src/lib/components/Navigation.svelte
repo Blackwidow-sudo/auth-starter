@@ -10,7 +10,7 @@
 	let { routes }: Props = $props()
 </script>
 
-<nav class="flex min-w-32 flex-auto flex-col items-center border-r">
+<nav class="flex min-w-32 flex-col items-center dark:bg-slate-900 dark:text-white">
 	{#each routes as route (route.path)}
 		<a
 			class="block text-nowrap px-4 py-2 hover:underline"
