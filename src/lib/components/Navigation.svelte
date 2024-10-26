@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/stores'
+
 	import type { Route } from '$lib/routes'
 
 	interface Props {
@@ -8,10 +10,11 @@
 	let { routes }: Props = $props()
 </script>
 
-<nav class="flex flex-col flex-auto min-w-32 items-center border-r">
+<nav class="flex min-w-32 flex-auto flex-col items-center border-r">
 	{#each routes as route (route.path)}
 		<a
-			class="block px-4 py-2"
+			class="block text-nowrap px-4 py-2 hover:underline"
+			class:underline={$page.url.pathname === route.path}
 			href={route.path}>
 			{route.name}
 		</a>
