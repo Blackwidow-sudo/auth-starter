@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css'
+	import { enhance } from '$app/forms'
 	import { page } from '$app/stores'
 	import { PUBLIC_APP_NAME } from '$env/static/public'
 	import { routes } from '$lib/routes'
@@ -25,7 +26,8 @@
 						href="/account">Account</a>
 					<form
 						action="/logout"
-						method="post">
+						method="post"
+						use:enhance>
 						<button class="block px-4 py-2 hover:underline">Logout</button>
 					</form>
 				{:else}
