@@ -11,7 +11,7 @@
 
 <div class="flex size-full flex-col overflow-hidden dark:text-white">
 	<header
-		class="z-10 flex-none border-b border-slate-500 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white">
+		class="z-10 flex-none border-b border-slate-500 bg-gradient-to-r from-indigo-800 via-purple-800 to-pink-800 p-2 text-white">
 		<div class="flex flex-nowrap items-center justify-between">
 			<a
 				class="px-4 text-xl font-semibold"
