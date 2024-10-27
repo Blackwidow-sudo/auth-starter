@@ -9,7 +9,7 @@
 	<title>Login</title>
 </svelte:head>
 
-<div class="space-y-4 py-4">
+<div class="space-y-4 p-4">
 	<h1 class="text-center text-xl font-bold">Login</h1>
 	<Form.Form>
 		<Form.Input

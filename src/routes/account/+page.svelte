@@ -8,7 +8,7 @@
 	<title>My account</title>
 </svelte:head>
 
-<div class="space-y-4 py-4">
+<div class="space-y-4 p-4">
 	<div class="mx-auto max-w-md rounded border border-slate-500 p-4 dark:bg-slate-800">
 		<h1 class="text-xl font-semibold">
 			Hello {user?.username}
