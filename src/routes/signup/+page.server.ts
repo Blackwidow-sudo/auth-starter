@@ -68,6 +68,6 @@ export const actions = {
 			return fail(500, { message: 'An error has occurred' })
 		}
 
-		return redirect(302, '/demo/lucia')
+		return redirect(302, '/account')
 	}
 } satisfies Actions
