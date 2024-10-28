@@ -1,6 +1,6 @@
 import { dev } from '$app/environment'
-import * as auth from '$lib/server/auth'
 import { sequence } from '@sveltejs/kit/hooks'
+import * as auth from '$lib/server/auth'
 
 import type { Handle } from '@sveltejs/kit'
 
@@ -10,6 +10,7 @@ const handleAuth: Handle = async ({ event, resolve }) => {
 	if (!sessionId) {
 		event.locals.user = null
 		event.locals.session = null
+
 		return resolve(event)
 	}
 

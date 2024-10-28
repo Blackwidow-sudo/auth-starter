@@ -4,7 +4,6 @@ import { eq } from 'drizzle-orm'
 import { failWithErrors } from '$lib/components/form'
 import { redirect } from '@sveltejs/kit'
 import { validateEmail, validatePassword } from '$lib/validation'
-import { verify } from '@node-rs/argon2'
 import * as auth from '$lib/server/auth'
 
 import type { Actions, PageServerLoad } from './$types'
@@ -39,12 +38,7 @@ export const actions = {
 			})
 		}
 
-		const validPassword = await verify(user.passwordHash, password, {
-			memoryCost: 19456,
-			timeCost: 2,
-			outputLen: 32,
-			parallelism: 1
-		})
+		const validPassword = await auth.verifyPassword(user.passwordHash, password)
 
 		if (!validPassword) {
 			return failWithErrors({
