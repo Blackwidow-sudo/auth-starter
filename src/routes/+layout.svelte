@@ -3,13 +3,15 @@
 	import { enhance } from '$app/forms'
 	import { page } from '$app/stores'
 	import { PUBLIC_APP_NAME } from '$env/static/public'
-	import { routes } from '$lib/routes'
+	import { routes as allRoutes } from '$lib/routes'
 	import * as Drawer from '$lib/components/dialogs'
 	import Navigation from '$lib/components/Navigation.svelte'
 
 	let { children, data } = $props()
 
 	let open = $state(false)
+
+	const routes = $derived(allRoutes.filter((r) => (!r.public ? data.user?.isAdmin : true)))
 
 	function onToggleDrawer() {
 		open = !open
