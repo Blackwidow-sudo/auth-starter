@@ -4,17 +4,26 @@
 	import { page } from '$app/stores'
 	import { PUBLIC_APP_NAME } from '$env/static/public'
 	import { routes as allRoutes } from '$lib/routes'
-	import * as Drawer from '$lib/components/dialogs'
+	import * as Drawer from '$lib/components/dialog'
 	import Navigation from '$lib/components/Navigation.svelte'
 
 	let { children, data } = $props()
 
-	let open = $state(false)
+	let drawerOpen = $state(false)
+	let dialog = $state(false)
 
-	const routes = $derived(allRoutes.filter((r) => (!r.public ? data.user?.isAdmin : true)))
+	const routes = $derived.by(() =>
+		allRoutes.filter((r) => {
+			if (!data.user) {
+				return r.public
+			}
+
+			return data.user.isAdmin ? true : !r.path.startsWith('/admin')
+		})
+	)
 
 	function onToggleDrawer() {
-		open = !open
+		drawerOpen = !drawerOpen
 	}
 </script>
 
@@ -28,7 +37,7 @@
 					onclick={onToggleDrawer} />
 				<Drawer.Drawer
 					class="min-w-56 border-r border-slate-400 dark:border-slate-700"
-					bind:open>
+					bind:open={drawerOpen}>
 					<a
 						class="block text-nowrap border-b border-slate-400 p-4 text-xl font-semibold dark:border-slate-700 dark:text-slate-300"
 						href="/">
