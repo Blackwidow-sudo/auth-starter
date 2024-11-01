@@ -3,22 +3,18 @@
 	import { fly } from 'svelte/transition'
 	import { hasFormCtx, getFormCtx } from './ctx'
 
-	interface Props {
-		[key: string]: any
-		autocomplete?: HTMLInputElement['autocomplete']
-		class?: HTMLInputElement['className']
+	import type { HTMLInputAttributes } from 'svelte/elements'
+
+	interface Props extends HTMLInputAttributes {
 		errorMessages?: string[]
 		id?: string
 		label?: string
+		name: string
 		maxErrors?: number
-		name: HTMLInputElement['name']
 		rules?: Array<(value: string) => boolean | string>
-		type?: HTMLInputElement['type']
-		value?: HTMLInputElement['value']
 	}
 
 	let {
-		autocomplete = 'off',
 		class: cls = '',
 		errorMessages,
 		id,
@@ -26,7 +22,6 @@
 		maxErrors = 1,
 		name,
 		rules,
-		type,
 		value = $bindable(''),
 		...restProps
 	}: Props = $props()
@@ -68,6 +63,7 @@
 	data-type="sv-input">
 	<label
 		class="block w-full"
+		class:hidden={!label}
 		for={id || name}>{label}</label>
 	<input
 		{name}
@@ -80,7 +76,6 @@
 			cls
 		)}
 		id={id || name}
-		type={type || 'text'}
 		onblur={interact}
 		oninput={interact}
 		{...restProps}

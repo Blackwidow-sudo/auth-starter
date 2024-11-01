@@ -4,15 +4,12 @@
 	import { setFormCtx } from './ctx'
 	import { SvelteMap } from 'svelte/reactivity'
 
+	import type { HTMLFormAttributes } from 'svelte/elements'
 	import type { Snippet } from 'svelte'
 	import type { SubmitFunction } from '@sveltejs/kit'
 
-	interface Props {
-		[key: string]: any
-		action?: HTMLFormElement['action']
-		children: Snippet
-		class?: string
-		onsubmit?: (event: Event) => void
+	interface Props extends HTMLFormAttributes {
+		children?: Snippet
 	}
 
 	let { children, action, class: cls = '', onsubmit, ...restProps }: Props = $props()
@@ -41,10 +38,9 @@
 		'mx-auto max-w-md space-y-1 rounded-md border border-slate-300 bg-slate-100 p-6 shadow-md dark:border-slate-500 dark:bg-slate-800 dark:shadow-slate-700',
 		cls
 	)}
-	action={action || ''}
 	method="post"
 	{onsubmit}
 	{...restProps}
 	use:enhance={submitFn}>
-	{@render children()}
+	{@render children?.()}
 </form>

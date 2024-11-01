@@ -3,11 +3,10 @@
 	import { hasFormCtx, getFormCtx } from './ctx'
 
 	import type { Snippet } from 'svelte'
+	import type { HTMLButtonAttributes } from 'svelte/elements'
 
-	interface Props {
-		[key: string]: any
+	interface Props extends HTMLButtonAttributes {
 		children: Snippet
-		class?: HTMLButtonElement['className']
 	}
 
 	let { children, class: cls = '', ...restProps }: Props = $props()
@@ -28,7 +27,6 @@
 		'mx-auto block rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50',
 		cls
 	)}
-	type="submit"
 	{...restProps}>
 	{@render children()}
 </button>
