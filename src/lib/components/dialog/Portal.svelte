@@ -13,7 +13,6 @@
 
 <div
 	hidden
-	data-portal
 	use:portal={target}>
 	{@render children()}
 </div>
