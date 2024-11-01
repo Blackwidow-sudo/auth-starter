@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Dialog from '$lib/components/dialog/Dialog.svelte'
 	import Table, { type Header } from '$lib/components/table/Table.svelte'
 
 	let { data } = $props()
@@ -8,14 +9,18 @@
 		{ title: 'Email', key: 'email' },
 		{ title: 'Admin', key: 'isAdmin' },
 		{ title: 'Created At', key: 'createdAt' },
-		{ title: 'Actions', key: 'actions', align: 'center' }
+		{ title: 'Actions', key: 'actions' }
 	]
 
-	function onEdit(item: Record<string, any>) {
-		console.log(item)
+	const dialogs = $state({
+		edit: false
+	})
+
+	function onEdit(item: (typeof data.users)[0]) {
+		dialogs.edit = !dialogs.edit
 	}
 
-	function onDelete(item: Record<string, any>) {}
+	function onDelete(item: (typeof data.users)[0]) {}
 </script>
 
 <div class="space-y-4 p-4">
