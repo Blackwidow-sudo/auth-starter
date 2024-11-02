@@ -9,12 +9,10 @@
 </svelte:head>
 
 <div class="space-y-4 p-4">
-	<div class="mx-auto max-w-md rounded border border-slate-500 p-4 dark:bg-slate-800">
-		<h1 class="text-xl font-semibold">
-			Hello {user?.username}
-		</h1>
-		<p class="text-slate-700 dark:text-slate-400">
-			You are logged in as {user?.email}
-		</p>
+	<div class="card mx-auto max-w-md bg-base-200">
+		<div class="card-body">
+			<h2 class="card-title">{user?.username}</h2>
+			<p>You are logged in as {user?.email}</p>
+		</div>
 	</div>
 </div>

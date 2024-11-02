@@ -12,14 +12,16 @@
 </svelte:head>
 
 <div class="space-y-4 p-4">
-	<h1 class="text-center text-xl font-bold">Register</h1>
-	<Form.Form>
+	<Form.Form
+		class="mx-auto"
+		title="Register">
 		<Form.Input
 			errorMessages={form?.errors?.email}
 			label="Email"
 			name="email"
-			type="email"
-			placeholder="Enter your email..." />
+			placeholder="Enter your email..."
+			rules={rules.email}
+			type="email" />
 		<Form.Input
 			errorMessages={form?.errors?.username}
 			label="Username"
@@ -42,7 +44,9 @@
 			placeholder="Confirm your password..."
 			rules={[...rules.required, ...rules.match(password, 'Password')]}
 			type="password" />
-		<Form.Submit>Sign Up</Form.Submit>
+		{#snippet actions()}
+			<button class="btn btn-primary">Sign Up</button>
+		{/snippet}
 	</Form.Form>
 	<p style="color: red">{form?.message ?? ''}</p>
 </div>
