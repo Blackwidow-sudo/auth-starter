@@ -3,30 +3,24 @@
 	import { fly } from 'svelte/transition'
 	import { hasFormCtx, getFormCtx } from './ctx'
 
-	interface Props {
-		[key: string]: any
-		autocomplete?: HTMLInputElement['autocomplete']
-		class?: HTMLInputElement['className']
+	import type { HTMLInputAttributes } from 'svelte/elements'
+
+	interface Props extends HTMLInputAttributes {
 		errorMessages?: string[]
-		id?: string
 		label?: string
 		maxErrors?: number
-		name: HTMLInputElement['name']
+		name: string
 		rules?: Array<(value: string) => boolean | string>
-		type?: HTMLInputElement['type']
-		value?: HTMLInputElement['value']
 	}
 
 	let {
 		autocomplete = 'off',
 		class: cls = '',
 		errorMessages,
-		id,
 		label,
 		maxErrors = 1,
 		name,
 		rules,
-		type,
 		value = $bindable(''),
 		...restProps
 	}: Props = $props()
@@ -63,7 +57,33 @@
 	}
 </script>
 
-<div
+<label class="form-control w-full max-w-sm">
+	<div
+		class="label"
+		class:hidden={!label}>
+		<span class="label-text">{label}</span>
+	</div>
+	<input
+		type="text"
+		class={cn('input input-bordered w-full max-w-sm', cls)}
+		class:input-error={errors.length}
+		{name}
+		{...restProps}
+		onblur={interact}
+		oninput={interact}
+		bind:value />
+	<div class="label min-h-4 py-0">
+		{#each errors.slice(0, maxErrors) as err}
+			<div
+				class="label-text-alt min-h-4 text-xs text-red-600 dark:text-red-400"
+				transition:fly={{ y: -5, duration: 200 }}>
+				{err}
+			</div>
+		{/each}
+	</div>
+</label>
+
+<!-- <div
 	class="dark:text-slate-200"
 	data-type="sv-input">
 	<label
@@ -94,4 +114,4 @@
 			</div>
 		{/each}
 	</div>
-</div>
+</div> -->
