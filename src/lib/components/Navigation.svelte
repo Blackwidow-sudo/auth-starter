@@ -13,7 +13,19 @@
 	let { routes, class: cls = '', ...restProps }: Props = $props()
 </script>
 
-<nav
+<nav>
+	<ul class="menu menu-lg px-4 py-0 lg:menu-md">
+		{#each routes as route (route.path)}
+			<li>
+				<a
+					href={route.path}
+					class:active={$page.url.pathname === route.path}>{route.name}</a>
+			</li>
+		{/each}
+	</ul>
+</nav>
+
+<!-- <nav
 	class={cn('grid min-w-36 items-center bg-slate-300 py-1 dark:bg-slate-900', cls)}
 	{...restProps}>
 	{#each routes as route (route.path)}
@@ -25,4 +37,4 @@
 			{route.name}
 		</a>
 	{/each}
-</nav>
+</nav> -->

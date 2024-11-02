@@ -4,89 +4,97 @@
 	import { page } from '$app/stores'
 	import { PUBLIC_APP_NAME } from '$env/static/public'
 	import { routes } from '$lib/routes'
-	import * as Drawer from '$lib/components/dialogs'
 	import Navigation from '$lib/components/Navigation.svelte'
 
 	let { children, data } = $props()
-
-	let open = $state(false)
-
-	function onToggleDrawer() {
-		open = !open
-	}
 </script>
 
-<div class="flex size-full flex-col overflow-hidden dark:text-white">
-	<header
-		class="z-10 flex-none border-b border-slate-400 bg-gradient-to-r from-indigo-800 via-purple-800 to-pink-800 p-2 text-white dark:border-slate-700">
-		<div class="flex flex-nowrap items-center justify-between">
-			<div class="flex items-center justify-center">
-				<Drawer.Trigger
-					class="md:hidden"
-					onclick={onToggleDrawer} />
-				<Drawer.Drawer
-					class="min-w-56 border-r border-slate-400 dark:border-slate-700"
-					bind:open>
-					<a
-						class="block text-nowrap border-b border-slate-400 p-4 text-xl font-semibold dark:border-slate-700 dark:text-slate-300"
-						href="/">
-						{PUBLIC_APP_NAME}
-					</a>
-					<Navigation
-						{routes}
-						onclick={onToggleDrawer} />
-				</Drawer.Drawer>
-				<a
-					class="text-nowrap px-4 text-xl font-semibold"
-					href="/">
-					{PUBLIC_APP_NAME}
-				</a>
-			</div>
-			<nav class="flex flex-nowrap">
-				{#if data.user}
-					<a
-						class="block px-4 hover:underline"
-						class:underline={$page.url.pathname === '/account'}
-						href="/account">Account</a>
-					<form
-						action="/logout"
-						method="post"
-						use:enhance>
-						<button class="block px-4 hover:underline">Logout</button>
-					</form>
-				{:else}
-					<a
-						class="block px-4 hover:underline"
-						class:underline={$page.url.pathname === '/signup'}
-						href="/signup">Sign Up</a>
-					<a
-						class="block px-4 hover:underline"
-						class:underline={$page.url.pathname === '/login'}
-						href="/login">Log In</a>
-				{/if}
+<div class="drawer bg-base-100 lg:drawer-open">
+	<input
+		id="sidebar"
+		type="checkbox"
+		class="drawer-toggle" />
+	<div class="drawer-content">
+		<div
+			class="sticky top-0 z-30 flex h-16 w-full justify-center bg-base-100 bg-opacity-90 text-base-content shadow-sm backdrop-blur transition-shadow duration-100 [transform:translate3d(0,0,0)]">
+			<nav class="navbar w-full">
+				<div class="flex flex-1 md:gap-1 lg:gap-2">
+					<span
+						class="tooltip tooltip-bottom before:text-xs"
+						data-tip="Menu">
+						<label
+							for="sidebar"
+							aria-label="Open menu"
+							class="btn btn-square btn-ghost drawer-button lg:hidden">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								class="inline-block h-5 w-5 stroke-current md:h-6 md:w-6">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M4 6h16M4 12h16M4 18h16"></path>
+							</svg>
+						</label>
+					</span>
+				</div>
+				<div class="flex-none">
+					<ul class="menu menu-horizontal gap-2 px-1">
+						{#if data.user}
+							<li>
+								<a
+									class:active={$page.url.pathname === '/account'}
+									href="/account">Account</a>
+							</li>
+							<li>
+								<form
+									action="/logout"
+									method="post"
+									use:enhance>
+									<button>Logout</button>
+								</form>
+							</li>
+						{:else}
+							<li>
+								<a
+									class:active={$page.url.pathname === '/signup'}
+									href="/signup">Sign Up</a>
+							</li>
+							<li>
+								<a
+									class:active={$page.url.pathname === '/login'}
+									href="/login">Log In</a>
+							</li>
+						{/if}
+					</ul>
+				</div>
 			</nav>
 		</div>
-	</header>
-	<div class="flex size-full flex-auto overflow-hidden">
-		<aside
-			class="scrollbar-thin hidden flex-none overflow-y-auto overflow-x-hidden border-r border-slate-400 bg-slate-300 md:block dark:border-slate-700 dark:bg-slate-900">
-			<Navigation {routes} />
-		</aside>
-		<div
-			class="flex flex-1 flex-col overflow-x-hidden scroll-smooth dark:bg-slate-950 dark:text-slate-300">
-			<main class="container mx-auto flex-auto">
+		<div class="max-w-[100vw] px-6 pb-16 xl:pr-2">
+			<main class="container mx-auto">
 				{@render children()}
 			</main>
-			<footer class="flex-none">
-				<span class="block text-center">(footer)</span>
-			</footer>
 		</div>
 	</div>
+	<!-- Sidebar -->
+	<div class="drawer-side z-40">
+		<label
+			for="sidebar"
+			class="drawer-overlay"
+			aria-label="Close menu"></label>
+		<aside class="min-h-screen w-80 bg-base-100">
+			<div
+				class="sticky top-0 z-20 flex items-center gap-2 bg-base-100 bg-opacity-90 px-4 py-2 shadow-sm backdrop-blur">
+				<a
+					class="btn btn-ghost flex-none px-2"
+					href="/">
+					<span class="font-title inline-flex text-lg md:text-2xl">{PUBLIC_APP_NAME}</span>
+				</a>
+			</div>
+			<div class="h-4"></div>
+			<Navigation {routes} />
+		</aside>
+	</div>
 </div>
-
-<style>
-	:global(.scrollbar-thin) {
-		scrollbar-width: thin;
-		scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-	}
-</style>
