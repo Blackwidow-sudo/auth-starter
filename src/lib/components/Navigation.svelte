@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { cn } from '$lib/utils'
 	import { page } from '$app/stores'
 
-	import type { Route } from '$lib/routes'
-	import { cn } from '$lib/utils'
 	import type { HTMLAttributes } from 'svelte/elements'
+	import type { Route } from '$lib/routes'
 
 	interface Props extends HTMLAttributes<HTMLElement> {
 		routes: Route[]
