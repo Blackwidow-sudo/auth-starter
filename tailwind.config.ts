@@ -1,6 +1,6 @@
-import forms from '@tailwindcss/forms'
-import typography from '@tailwindcss/typography'
+import daisyui from 'daisyui'
 import type { Config } from 'tailwindcss'
+import typography from '@tailwindcss/typography'
 
 export default {
 	darkMode: 'media',
@@ -10,5 +10,5 @@ export default {
 		extend: {}
 	},
 
-	plugins: [typography, forms]
+	plugins: [typography, daisyui]
 } as Config

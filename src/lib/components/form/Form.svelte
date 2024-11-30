@@ -4,18 +4,17 @@
 	import { setFormCtx } from './ctx'
 	import { SvelteMap } from 'svelte/reactivity'
 
+	import type { HTMLFormAttributes } from 'svelte/elements'
 	import type { Snippet } from 'svelte'
 	import type { SubmitFunction } from '@sveltejs/kit'
 
-	interface Props {
-		[key: string]: any
-		action?: HTMLFormElement['action']
+	interface Props extends HTMLFormAttributes {
+		actions?: Snippet<[SvelteMap<string, boolean>]>
 		children: Snippet
-		class?: string
-		onsubmit?: (event: Event) => void
+		title?: string
 	}
 
-	let { children, action, class: cls = '', onsubmit, ...restProps }: Props = $props()
+	let { actions, children, class: cls = '', onsubmit, title, ...restProps }: Props = $props()
 
 	/**
 	 * Map that holds the validation state of each child field
@@ -37,14 +36,18 @@
 </script>
 
 <form
-	class={cn(
-		'mx-auto max-w-md space-y-1 rounded-md border border-slate-300 bg-slate-100 p-6 shadow-md dark:border-slate-500 dark:bg-slate-800 dark:shadow-slate-700',
-		cls
-	)}
-	action={action || ''}
+	class={cn('card max-w-md bg-base-200 shadow-xl', cls)}
 	method="post"
 	{onsubmit}
 	{...restProps}
 	use:enhance={submitFn}>
-	{@render children()}
+	<div class="card-body">
+		{#if title}
+			<h2 class="card-title">{title}</h2>
+		{/if}
+		{@render children()}
+		<div class="card-actions justify-center gap-2">
+			{@render actions?.(fieldCtx)}
+		</div>
+	</div>
 </form>

@@ -10,8 +10,9 @@
 </svelte:head>
 
 <div class="space-y-4 p-4">
-	<h1 class="text-center text-xl font-bold">Login</h1>
-	<Form.Form>
+	<Form.Form
+		class="mx-auto"
+		title="Login">
 		<Form.Input
 			errorMessages={form?.errors?.email}
 			label="Email"
@@ -26,6 +27,8 @@
 			placeholder="Enter your password..."
 			rules={rules.password}
 			type="password" />
-		<Form.Submit>Sign In</Form.Submit>
+		{#snippet actions()}
+			<button class="btn btn-primary">Sign In</button>
+		{/snippet}
 	</Form.Form>
 </div>

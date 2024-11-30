@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-	:root,
-	body {
-		@apply h-full overflow-hidden;
-	}
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
 }
