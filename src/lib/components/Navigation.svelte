@@ -3,10 +3,9 @@
 	import { page } from '$app/stores'
 
 	import type { Route } from '$lib/routes'
+	import type { HTMLAttributes } from 'svelte/elements'
 
-	interface Props {
-		[key: string]: unknown
-		class?: HTMLElement['className']
+	interface Props extends HTMLAttributes<HTMLElement> {
 		routes: Route[]
 	}
 

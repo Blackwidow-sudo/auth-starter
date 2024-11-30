@@ -4,15 +4,21 @@
 	import Portal from './Portal.svelte'
 
 	import type { Snippet } from 'svelte'
+	import type { HTMLAttributes } from 'svelte/elements'
 
-	interface Props {
+	interface Props extends HTMLAttributes<HTMLDivElement> {
 		children: Snippet
-		class?: HTMLDivElement['className']
 		open?: boolean
 		side?: 'left' | 'right' | 'top' | 'bottom'
 	}
 
-	let { children, class: cls = '', open = $bindable(false), side = 'left' }: Props = $props()
+	let {
+		children,
+		class: cls = '',
+		open = $bindable(false),
+		side = 'left',
+		...restProps
+	}: Props = $props()
 
 	const fadeParams: FadeParams = {
 		duration: 200
@@ -75,7 +81,8 @@
 				},
 				cls
 			)}
-			transition:fly={flyParams}>
+			transition:fly={flyParams}
+			{...restProps}>
 			{@render children()}
 		</div>
 	{/if}
